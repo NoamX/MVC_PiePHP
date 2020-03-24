@@ -1,10 +1,10 @@
 <?php
 spl_autoload_register(function ($class) {
-    $path = substr(__DIR__, 0, -strlen(basename(__DIR__)));
+    $path = '.' . DIRECTORY_SEPARATOR;
     $ext = '.php';
     $fullpath = $path . $class . $ext;
     if (!file_exists($fullpath)) {
-        $path .= 'src\\';
+        $path .= 'src' . DIRECTORY_SEPARATOR;
         $fullpath = $path . $class . $ext;
     }
     require_once $fullpath;
