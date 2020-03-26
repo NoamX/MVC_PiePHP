@@ -6,8 +6,8 @@ require_once(implode(DIRECTORY_SEPARATOR, ['Core', 'autoload.php']));
 $app = new \Core\Core();
 $app->run();
 
-echo '<pre>';
-var_dump($_POST);
-var_dump($_GET);
-var_dump($_SERVER);
-echo '</pre>';
+//echo '<pre>';
+//var_dump($_POST);
+//var_dump($_GET);
+//var_dump($_SERVER);
+//echo '</pre>';
