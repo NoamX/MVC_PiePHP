@@ -1,19 +1,14 @@
 <?php
 spl_autoload_register(function ($class) {
-    $path = 'Core/';
-    $ext = '.php';
-    $fullpath = $path . basename($class) . $ext;
-    if (!file_exists($fullpath)) {
-        $path = 'src/Model/';
-        $fullpath = $path . basename($class) . $ext;
+    $paths = [
+        'Core/',
+        'src/Controller/',
+        'src/Model/',
+    ];
+
+    foreach ($paths as $path) {
+        $file = $path . basename($class) . '.php';
+        if (file_exists($file))
+            require_once $file;
     }
-    if (!file_exists($fullpath)) {
-        $path = 'src/View/';
-        $fullpath = $path . basename($class) . $ext;
-    }
-    if (!file_exists($fullpath)) {
-        $path = 'src/Controller/';
-        $fullpath = $path . basename($class) . $ext;
-    }
-    require_once $fullpath;
 });

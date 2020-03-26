@@ -6,6 +6,6 @@ class Core
 {
     public function run()
     {
-        echo __CLASS__ . " [OK]<br>";
+        echo __CLASS__ . ' [OK]<br>';
     }
 }
