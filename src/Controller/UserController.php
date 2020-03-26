@@ -4,13 +4,8 @@ namespace Controller;
 
 class UserController
 {
-    public function run()
+    public function indexAction()
     {
-        echo __CLASS__ . " [OK]<br>";
-    }
-
-    public function helloAction()
-    {
-        echo 'Hello World !<br>';
+        echo 'IndexAction';
     }
 }

@@ -2,7 +2,7 @@
 spl_autoload_register(function ($class) {
     $path = 'Core/';
     $ext = '.php';
-    $fullpath = $path . basename($class) . $ext;    
+    $fullpath = $path . basename($class) . $ext;
     if (!file_exists($fullpath)) {
         $path = 'src/Model/';
         $fullpath = $path . basename($class) . $ext;
