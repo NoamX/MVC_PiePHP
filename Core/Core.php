@@ -11,7 +11,7 @@ class Core
         $arr = explode('/', $_SERVER['REDIRECT_URL']);
         $class = ucfirst($arr[4]) . 'Controller';
         $method = $arr[5] . 'Action';
-        echo "Action URL : $class -> $method<br>";
+        echo "Action : $class -> $method<br>";
         $controller = new $class;
         $controller->$method();
     }
