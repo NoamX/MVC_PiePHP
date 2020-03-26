@@ -5,7 +5,3 @@ require_once(implode(DIRECTORY_SEPARATOR, ['Core', 'autoload.php']));
 
 $app = new \Core\Core();
 $app->run();
-$app= new \Controller\UserController();
-$app->run();
-$app= new \Model\UserModel();
-$app->run();

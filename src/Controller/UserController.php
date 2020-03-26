@@ -8,9 +8,4 @@ class UserController
     {
         echo 'IndexAction<br>';
     }
-
-    public function run()
-    {
-        echo __CLASS__ . ' [OK]<br>';
-    }
 }
