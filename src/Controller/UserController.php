@@ -1,11 +1,8 @@
 <?php
 
-namespace Controller;
+// namespace Controller;
 
 class UserController
 {
-    public function indexAction()
-    {
-        echo 'IndexAction<br>';
-    }
+    
 }
