@@ -11,8 +11,9 @@ class Core
     {
         echo __CLASS__ . ' [OK]<br>';
         require_once 'src/routes.php';
-        $array = explode('/', $_SERVER['REDIRECT_URL']);
-        if (($route = Router::get('/' . end($array))) != null) {
+        $static = substr($_SERVER['REDIRECT_URL'], 26);
+
+        if (($route = Router::get($static)) != null) {
             $class = ucfirst($route['controller']) . 'Controller';
             $method = $route['action'] . 'Action';
             echo "$class -> $method<br>";
@@ -35,7 +36,8 @@ class Core
                         $controller->$method();
                     } else
                         echo '404';
-                }
+                } else
+                    echo '404';
             } elseif (preg_match('%(app|user)%', $url[4]) || isset($url[4]) && !isset($url[5])) {
                 if ($url[4] != '') {
                     $class = ucfirst($url[4]) . 'Controller';
