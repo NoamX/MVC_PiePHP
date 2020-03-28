@@ -8,4 +8,9 @@ class UserController
     {
         echo 'user/index<br>';
     }
+
+    public function addAction()
+    {
+        echo 'user/add<br>';
+    }
 }

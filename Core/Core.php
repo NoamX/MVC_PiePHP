@@ -12,8 +12,12 @@ class Core
         echo __CLASS__ . ' [OK]<br>';
         require_once 'src/routes.php';
         $array = explode('/', $_SERVER['REDIRECT_URL']);
-        if (Router::get('/' . end($array)) != null) {
-            echo 'Here<br>';
+        if (($route = Router::get('/' . end($array))) != null) {
+            $class = ucfirst($route['controller']) . 'Controller';
+            $method = $route['action'] . 'Action';
+            echo "$class -> $method<br>";
+            $controller = new $class();
+            $controller->$method();
         } else {
             $url = explode('/', $_SERVER['REDIRECT_URL']);
             if (isset($url[4], $url[5])) {
