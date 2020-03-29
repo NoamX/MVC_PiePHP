@@ -1,4 +1,4 @@
 <?php
 
-Router::connect('/', ['controller' => 'app', 'action' => 'index']);
-Router::connect('/register', ['controller' => 'user', 'action' => 'add']);
+Core\Router::connect('/', ['controller' => 'app', 'action' => 'index']);
+Core\Router::connect('/register', ['controller' => 'user', 'action' => 'add']);

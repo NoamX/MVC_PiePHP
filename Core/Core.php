@@ -2,19 +2,18 @@
 
 namespace Core;
 
-use Router;
+use Core\Router as Router;
 
 class Core
 {
-
     public function run()
     {
         echo __CLASS__ . ' [OK]<br>';
         require_once 'src/routes.php';
-        $static = substr($_SERVER['REDIRECT_URL'], 26);
+        $static = explode('MVC_PiePHP', $_SERVER['REDIRECT_URL']);
 
-        if (($route = Router::get($static)) != null) {
-            $class = ucfirst($route['controller']) . 'Controller';
+        if (($route = Router::get($static[1])) != null) {
+            $class = 'Controller\\' . ucfirst($route['controller']) . 'Controller';
             $method = $route['action'] . 'Action';
             echo "$class -> $method<br>";
             $controller = new $class();
@@ -22,7 +21,7 @@ class Core
         } else {
             $url = explode('/', $_SERVER['REDIRECT_URL']);
             if (isset($url[4], $url[5])) {
-                $class = ucfirst($url[4]) . 'Controller';
+                $class = 'Controller\\' . ucfirst($url[4]) . 'Controller';
 
                 if ($url[5] == '')
                     $method = 'indexAction';
@@ -40,7 +39,7 @@ class Core
                     echo '404';
             } elseif (preg_match('%(app|user)%', $url[4]) || isset($url[4]) && !isset($url[5])) {
                 if ($url[4] != '') {
-                    $class = ucfirst($url[4]) . 'Controller';
+                    $class = 'Controller\\' . ucfirst($url[4]) . 'Controller';
                     if (class_exists($class)) {
                         echo "$class -> indexAction<br>";
                         $controller = new $class();
