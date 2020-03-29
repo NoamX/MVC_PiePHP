@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Core\Router as Router;
+use Core\Router;
 
 class Core
 {
@@ -11,7 +11,6 @@ class Core
         echo __CLASS__ . ' [OK]<br>';
         require_once 'src/routes.php';
         $static = explode('MVC_PiePHP', $_SERVER['REDIRECT_URL']);
-
         if (($route = Router::get($static[1])) != null) {
             $class = 'Controller\\' . ucfirst($route['controller']) . 'Controller';
             $method = $route['action'] . 'Action';
