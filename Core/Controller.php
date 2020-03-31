@@ -6,11 +6,6 @@ class Controller
 {
     public static $_render;
 
-    public function __construct()
-    {
-        include('./src/View/index.php');
-    }
-
     protected function render($view, $scope = [])
     {
         extract($scope);
@@ -20,8 +15,12 @@ class Controller
             include($f);
             $view = ob_get_clean();
             ob_start();
-            include(implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'View', 'index']) . '.php');
+            $test = include(implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'View', 'index']) . '.php');
+            var_dump($test);
             self::$_render = ob_get_clean();
+            return self::$_render;
         }
     }
+
+    
 }

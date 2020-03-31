@@ -11,13 +11,16 @@ class UserController extends Controller
     {
         UserModel::connectPDO();
     }
-
+    
     public function indexAction()
     {
         echo '<p>user/index</p>';
         $user = UserModel::readAll();
-        $test = new Controller;
-        $test->render($user);
+        $test = new Controller();
+        foreach ($user as $email) {
+            echo "<p>$email->email</p>";
+            echo $test->render($email->email);
+        }
     }
 
     public function addAction()
