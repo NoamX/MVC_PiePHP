@@ -14,14 +14,14 @@ class UserController extends Controller
 
     public function indexAction()
     {
-        echo 'user/index<br>';
+        echo '<p>user/index</p>';
         $user = UserModel::readAll();
-        // $test = new Controller;
-        // $test->render($user);
+        $test = new Controller;
+        $test->render($user);
     }
 
     public function addAction()
     {
-        echo 'user/add<br>';
+        echo '<p>user/add</p>';
     }
 }

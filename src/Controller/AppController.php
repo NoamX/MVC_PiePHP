@@ -8,6 +8,6 @@ class AppController extends Controller
 {
     public function indexAction()
     {
-        echo 'app/index<br>';
+        echo '<p>app/index</p>';
     }
 }

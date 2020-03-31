@@ -4,12 +4,13 @@ namespace Core;
 
 class Controller
 {
+    public static $_render;
+
     public function __construct()
     {
-        
+        include('./src/View/index.php');
     }
 
-    public static $_render;
     protected function render($view, $scope = [])
     {
         extract($scope);
