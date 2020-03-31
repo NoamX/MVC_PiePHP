@@ -4,6 +4,12 @@ namespace Core;
 
 class Controller
 {
+    public function __construct()
+    {
+        
+    }
+
+    public static $_render;
     protected function render($view, $scope = [])
     {
         extract($scope);

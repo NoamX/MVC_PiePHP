@@ -2,14 +2,22 @@
 
 namespace Controller;
 
+use Core\Controller;
 use Model\UserModel;
 
-class UserController
+class UserController extends Controller
 {
+    public function __construct()
+    {
+        UserModel::connectPDO();
+    }
+
     public function indexAction()
     {
         echo 'user/index<br>';
-        UserModel::readAll();
+        $user = UserModel::readAll();
+        // $test = new Controller;
+        // $test->render($user);
     }
 
     public function addAction()
@@ -17,4 +25,3 @@ class UserController
         echo 'user/add<br>';
     }
 }
-UserModel::connectPDO();
