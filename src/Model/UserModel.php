@@ -13,9 +13,6 @@ class UserModel
     public static function readAll()
     {
         $req = self::$db->query('SELECT * FROM users');
-        $res = $req->fetchAll(5);
-        foreach ($res as $value) {
-            echo "<p>$value->email</p>";
-        }
+        return $req->fetchAll(5);
     }
 }

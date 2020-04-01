@@ -4,13 +4,7 @@ namespace Core;
 
 class Controller
 {
-    public static $_render;
-
-    public function __construct()
-    {
-        include('./src/View/index.php');
-    }
-
+    protected static $_render;
     protected function render($view, $scope = [])
     {
         extract($scope);
@@ -23,5 +17,9 @@ class Controller
             include(implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'View', 'index']) . '.php');
             self::$_render = ob_get_clean();
         }
+    }
+    public function __destruct()
+    {
+        echo self::$_render;
     }
 }
