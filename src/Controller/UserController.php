@@ -11,7 +11,7 @@ class UserController extends Controller
     {
         UserModel::connectPDO();
     }
-    
+
     public function indexAction()
     {
         echo '<p>user/index</p>';
@@ -23,7 +23,13 @@ class UserController extends Controller
 
     public function addAction()
     {
-        // echo '<p>user/add</p>';
-        $this->render('login');
+        $this->render('register');
+    }
+
+    public function registerAction()
+    {
+        echo '<p>user/register</p>';
+        $model = new UserModel($_POST['email'], $_POST['password']);
+        $model->save();
     }
 }
