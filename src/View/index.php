@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,3 +13,9 @@
 </body>
 
 </html>
+=======
+<div>
+    <?= $view ?? "Rien\n" ?>
+    <p>abc</p>
+</div>
+>>>>>>> 086c5391f80deacad037b09aff6743bcb2bd54d6
