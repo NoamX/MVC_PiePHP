@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public function addAction()
     {
-        echo '<p>user/add</p>';
+        // echo '<p>user/add</p>';
         $this->render('login');
     }
 }

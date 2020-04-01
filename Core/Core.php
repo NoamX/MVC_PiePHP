@@ -8,13 +8,13 @@ class Core
 {
     public function run()
     {
-        echo '<p>' .__CLASS__ . ' [OK]</p>';
+        // echo '<p>' .__CLASS__ . ' [OK]</p>';
         require_once 'src/routes.php';
         $static = explode('MVC_PiePHP', $_SERVER['REDIRECT_URL']);
         if (($route = Router::get($static[1])) != null) {
             $class = 'Controller\\' . ucfirst($route['controller']) . 'Controller';
             $method = $route['action'] . 'Action';
-            echo "<p>$class -> $method</p>";
+            // echo "<p>$class -> $method</p>";
             $controller = new $class();
             $controller->$method();
         } else {
@@ -30,7 +30,7 @@ class Core
                 if (class_exists($class)) {
                     $controller = new $class();
                     if (method_exists($controller, $method)) {
-                        echo "<p>$class -> $method</p>";
+                        // echo "<p>$class -> $method</p>";
                         $controller->$method();
                     } else
                         echo '404';
@@ -40,7 +40,7 @@ class Core
                 if ($url[4] != '') {
                     $class = 'Controller\\' . ucfirst($url[4]) . 'Controller';
                     if (class_exists($class)) {
-                        echo "<p>$class -> indexAction</p>";
+                        // echo "<p>$class -> indexAction</p>";
                         $controller = new $class();
                         $controller->indexAction();
                     } else
