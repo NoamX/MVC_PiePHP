@@ -7,19 +7,19 @@ use Model\UserModel;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        UserModel::connectPDO();
-    }
+
 
     public function indexAction()
     {
         echo '<p>user/index</p>';
-        $user = UserModel::readAll();
-        foreach ($user as $email) {
-            echo "<p>$email->email</p>";
-        }
+        $users = new UserModel();
+        // $users->create('qwerty@gmail.com', 'qwerty');
+        // $users->read(4);
+        // $users->update('email', 'qwerty1@gmail.com', 1);
+        // $users->delete(6);
+        // $users->read_all();
     }
+
 
     public function addAction()
     {
@@ -29,21 +29,5 @@ class UserController extends Controller
     public function loginAction()
     {
         $this->render('login');
-    }
-
-    public function checkregisterAction()
-    {
-        if (isset($_POST['email'], $_POST['password'])) {
-            $model = new UserModel($_POST['email'], $_POST['password']);
-            $model->save();
-        }
-    }
-
-    public function checkloginAction()
-    {
-        if (isset($_POST['email'], $_POST['password'])) {
-            $model = new UserModel($_POST['email'], $_POST['password']);
-            $model->login();
-        }
     }
 }

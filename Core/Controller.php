@@ -9,7 +9,7 @@ class Controller
     {
         extract($scope);
         if (PHP_OS == 'Linux')
-            $f = implode(DIRECTORY_SEPARATOR,  str_replace('\\', '', [dirname(__DIR__), 'src', 'View', str_replace('Controller', '', basename(get_class($this))), $view])) . '.php';
+            $f = implode(DIRECTORY_SEPARATOR,  str_replace('\\', '/', [dirname(__DIR__), 'src', 'View', str_replace('Controller', '', basename(get_class($this))), $view])) . '.php';
         else
             $f = implode(DIRECTORY_SEPARATOR, [dirname(__DIR__), 'src', 'View', str_replace('Controller', '', basename(get_class($this))), $view]) . '.php';
 
