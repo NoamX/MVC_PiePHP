@@ -7,17 +7,26 @@ use Model\UserModel;
 
 class UserController extends Controller
 {
+    private static $users;
 
+    public function __construct()
+    {
+        self::$users = new UserModel();
+    }
 
     public function indexAction()
     {
         echo '<p>user/index</p>';
-        $users = new UserModel();
+        // $users =
         // $users->create('qwerty@gmail.com', 'qwerty');
         // $users->read(4);
         // $users->update('email', 'qwerty1@gmail.com', 1);
         // $users->delete(6);
-        // $users->read_all();
+    }
+    
+    public function readallAction()
+    {
+        self::$users->read_all();
     }
 
 

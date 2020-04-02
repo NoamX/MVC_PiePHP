@@ -42,6 +42,8 @@ class UserModel
             $res = $req->fetch(PDO::FETCH_OBJ);
             if ($res) {
                 echo "<p>ID : $res->id | Email : $res->email</p>";
+            } else {
+                echo '<p>No user associated with this id.</p>';
             }
         }
     }
@@ -49,7 +51,7 @@ class UserModel
     // Met à jour les champs d’une entrée en base suivant l’id de l’user
     public function update($field, $value, $id)
     {
-        if (is_int($id)) {
+        if (is_int($id) && preg_match('%(email|password)%', $value)) {
             $check = self::$db->prepare('SELECT * FROM users WHERE id = :id');
             $check->execute([
                 'id' => $id,
@@ -60,6 +62,8 @@ class UserModel
                 $value = htmlspecialchars($value);
                 $req = self::$db->prepare("UPDATE users SET $field = '" . $value . "' WHERE id = $id");
                 $req->execute();
+            } else {
+                echo '<p>You can\'t update an user that doesn\'t exist !</p>';
             }
         }
     }
@@ -67,19 +71,21 @@ class UserModel
     // Supprime une entrée en base suivant l’id de l’user
     public function delete($id)
     {
-        $check = self::$db->prepare('SELECT id FROM users WHERE id = :id');
-        $check->execute([
-            'id' => $id,
-        ]);
-        $res = $check->fetch(PDO::FETCH_OBJ);
-        if ($res) {
-            $req = self::$db->prepare('DELETE FROM users WHERE id = :id');
-            $req->execute([
+        if (is_int($id)) {
+            $check = self::$db->prepare('SELECT id FROM users WHERE id = :id');
+            $check->execute([
                 'id' => $id,
             ]);
-            echo '<p>User successfully deleted !</p>';
-        } else {
-            echo '<p>You can\'t delete an user that doesn\'t exist !</p>';
+            $res = $check->fetch(PDO::FETCH_OBJ);
+            if ($res) {
+                $req = self::$db->prepare('DELETE FROM users WHERE id = :id');
+                $req->execute([
+                    'id' => $id,
+                ]);
+                echo '<p>User successfully deleted !</p>';
+            } else {
+                echo '<p>You can\'t delete an user that doesn\'t exist !</p>';
+            }
         }
     }
 
