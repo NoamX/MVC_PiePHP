@@ -23,6 +23,12 @@ class UserModel
             'email' => $email,
             'password' => $password,
         ]);
+        $getId = self::$db->prepare('SELECT id FROM users WHERE email = :email');
+        $getId->execute([
+            'email' => $email,
+        ]);
+        $id = $getId->fetch(PDO::FETCH_OBJ);
+        return $id;
     }
 
     // Récupère une entrée en base suivant l’id de l’user
