@@ -28,7 +28,7 @@ class UserModel
             'email' => $email,
         ]);
         $id = $getId->fetch(PDO::FETCH_OBJ);
-        return $id;
+        return $id->id;
     }
 
     // Récupère une entrée en base suivant l’id de l’user
