@@ -26,10 +26,24 @@ class UserController extends Controller
         $this->render('register');
     }
 
-    public function registerAction()
+    public function loginAction()
     {
-        echo '<p>user/register</p>';
-        $model = new UserModel($_POST['email'], $_POST['password']);
-        $model->save();
+        $this->render('login');
+    }
+
+    public function checkregisterAction()
+    {
+        if (isset($_POST['email'], $_POST['password'])) {
+            $model = new UserModel($_POST['email'], $_POST['password']);
+            $model->save();
+        }
+    }
+
+    public function checkloginAction()
+    {
+        if (isset($_POST['email'], $_POST['password'])) {
+            $model = new UserModel($_POST['email'], $_POST['password']);
+            $model->login();
+        }
     }
 }
