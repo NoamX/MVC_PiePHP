@@ -18,33 +18,42 @@ class UserModel
         $email = htmlspecialchars($email);
         $password = htmlspecialchars($password);
         $password = password_hash($password, PASSWORD_BCRYPT);
-        $req = self::$db->prepare('INSERT INTO users(email, password) VALUES(:email, :password)');
-        $req->execute([
-            'email' => $email,
-            'password' => $password,
-        ]);
-        $getId = self::$db->prepare('SELECT id FROM users WHERE email = :email');
-        $getId->execute([
+        $check = self::$db->prepare('SELECT * FROM users WHERE email = :email');
+        $check->execute([
             'email' => $email,
         ]);
-        $id = $getId->fetch(PDO::FETCH_OBJ);
-        return $id->id;
+        $resCheck = $check->fetch(PDO::FETCH_OBJ);
+
+        if (!$resCheck || $resCheck->email != $email) {
+            $req = self::$db->prepare('INSERT INTO users(email, password) VALUES(:email, :password)');
+            $req->execute([
+                'email' => $email,
+                'password' => $password,
+            ]);
+            echo '<div class="alert alert-success" align="center">Successfully registered !</div>';
+            $getId = self::$db->prepare('SELECT id FROM users WHERE email = :email');
+            $getId->execute([
+                'email' => $email,
+            ]);
+            $id = $getId->fetch(PDO::FETCH_OBJ);
+            return $id->id;
+        } else {
+            echo '<div class="alert alert-danger" align="center">Email already used !</div>';
+        }
     }
 
     // Récupère une entrée en base suivant l’id de l’user
     public function read($id)
     {
-        if (is_int($id)) {
-            $req = self::$db->prepare('SELECT * FROM users WHERE id = :id');
-            $req->execute([
-                'id' => $id,
-            ]);
-            $res = $req->fetch(PDO::FETCH_OBJ);
-            if ($res) {
-                echo "<p>ID : $res->id | Email : $res->email</p>";
-            } else {
-                echo '<p>No user associated with this id.</p>';
-            }
+        $req = self::$db->prepare('SELECT * FROM users WHERE id = :id');
+        $req->execute([
+            'id' => $id,
+        ]);
+        $res = $req->fetch(PDO::FETCH_OBJ);
+        if ($res) {
+            return $res;
+        } else {
+            echo '<div class="alert alert-danger" align="center">No user associated with this id.</div>';
         }
     }
 
@@ -63,7 +72,7 @@ class UserModel
                 $req = self::$db->prepare("UPDATE users SET $field = '" . $value . "' WHERE id = $id");
                 $req->execute();
             } else {
-                echo '<p>You can\'t update an user that doesn\'t exist !</p>';
+                echo '<div class="alert alert-danger" align="center">You can\'t update an user that doesn\'t exist !</div>';
             }
         }
     }
@@ -71,21 +80,18 @@ class UserModel
     // Supprime une entrée en base suivant l’id de l’user
     public function delete($id)
     {
-        if (is_int($id)) {
-            $check = self::$db->prepare('SELECT id FROM users WHERE id = :id');
-            $check->execute([
+        $check = self::$db->prepare('SELECT id FROM users WHERE id = :id');
+        $check->execute([
+            'id' => $id,
+        ]);
+        $res = $check->fetch(PDO::FETCH_OBJ);
+        if ($res) {
+            $req = self::$db->prepare('DELETE FROM users WHERE id = :id');
+            $req->execute([
                 'id' => $id,
             ]);
-            $res = $check->fetch(PDO::FETCH_OBJ);
-            if ($res) {
-                $req = self::$db->prepare('DELETE FROM users WHERE id = :id');
-                $req->execute([
-                    'id' => $id,
-                ]);
-                echo '<p>User successfully deleted !</p>';
-            } else {
-                echo '<p>You can\'t delete an user that doesn\'t exist !</p>';
-            }
+        } else {
+            echo '<div class="alert alert-danger" align="center">You can\'t delete an user that doesn\'t exist !</div>';
         }
     }
 
@@ -96,82 +102,27 @@ class UserModel
         $req->execute();
         $res = $req->fetchAll(PDO::FETCH_OBJ);
         if ($res) {
-            foreach ($res as $users) {
-                echo "<p>ID : $users->id | Email : $users->email</p>";
-            }
+            return $res;
         }
     }
 
+    public function login($email, $password)
+    {
+        $req = self::$db->prepare('SELECT * FROM users WHERE email = :email');
+        $req->execute([
+            'email' => $email,
+        ]);
+        $res = $req->fetch(5);
 
-
-
-    // private static $db;
-    // private $email;
-    // private $password;
-
-    // public function __construct($email, $password)
-    // {
-    //     $this->email = htmlspecialchars($email);
-    //     $this->password = htmlspecialchars($password);
-    // }
-
-    // public static function connectPDO()
-    // {
-    //     self::$db = new \PDO('mysql:host=localhost;dbname=MVC_PiePHP;', 'root', '');
-    // }
-
-    // public static function readAll()
-    // {
-    //     $req = self::$db->query('SELECT * FROM users');
-    //     return $req->fetchAll(5);
-    // }
-
-    // public function save()
-    // {
-    //     $reqCheck = 'SELECT * FROM users WHERE email = :email';
-    //     $check = [
-    //         'email' => $this->email,
-    //     ];
-    //     $insert = 'INSERT INTO users(email, password) VALUES(:email, :password)';
-    //     $exec = [
-    //         'email' => $this->email,
-    //         'password' => password_hash($this->password, PASSWORD_BCRYPT),
-    //     ];
-
-    //     $r = self::$db->prepare($reqCheck);
-    //     $r->execute($check);
-    //     $res = $r->fetch(5);
-
-    //     if (!$res || $res->email != $this->email) {
-    //         $req = self::$db->prepare($insert);
-    //         $req->execute($exec);
-    //         echo '<p>Successfully registered !</p>';
-    //     } else {
-    //         echo '<p>Already used, <a href=http://localhost/First_Year/PHP/MVC_PiePHP/register>try another email.</a></p>';
-    //     }
-    // }
-
-    // public function login()
-    // {
-    //     $login = 'SELECT * FROM users WHERE email = :email';
-    //     $exec = [
-    //         'email' => $this->email,
-    //     ];
-
-    //     $r = self::$db->prepare($login);
-    //     $r->execute($exec);
-    //     $res = $r->fetch(5);
-
-    //     if (!$res) {
-    //         echo '<p>Wrong email or password ! <a href=http://localhost/First_Year/PHP/MVC_PiePHP/login>Try another email or password.</a></p>';
-    //     } else {
-    //         $checkPass = password_verify($this->password, $res->password);
-    //         if ($checkPass) {
-    //             echo $res->email;
-    //             echo '<p>Successfully loged in !</p>';
-    //         } else {
-    //             echo '<p>Wrong email or password ! <a href=http://localhost/First_Year/PHP/MVC_PiePHP/login>Try another email or password.</a></p>';
-    //         }
-    //     }
-    // }
+        if (!$res) {
+            echo '<div class="alert alert-danger" align="center">Wrong email or password !</div>';
+        } else {
+            $checkPass = password_verify($password, $res->password);
+            if ($checkPass) {
+                echo '<div class="alert alert-success" align="center">Successfully loged in !</div>';
+            } else {
+                echo '<div class="alert alert-danger" align="center">Wrong email or password !</div>';
+            }
+        }
+    }
 }
