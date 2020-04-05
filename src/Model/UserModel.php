@@ -69,19 +69,42 @@ class UserModel
         }
     }
 
-    public function create()
+    public function create($email, $password)
+    {
+        $email = htmlspecialchars($this->email);
+        $password = htmlspecialchars($this->password);
+        $password = password_hash($password, PASSWORD_BCRYPT);
+
+        $check = self::$db->prepare('SELECT * FROM users WHERE email = :email');
+        $check->execute([
+            'email' => $email,
+        ]);
+        $resCheck = $check->fetch(PDO::FETCH_OBJ);
+
+        if (!$resCheck || $resCheck->email != $email) {
+            $req = self::$db->prepare('INSERT INTO users(email, password) VALUES(:email, :password)');
+            $req->execute([
+                'email' => $email,
+                'password' => $password,
+            ]);
+            $getId = self::$db->prepare('SELECT id FROM users WHERE email = :email');
+            $getId->execute([
+                'email' => $email,
+            ]);
+            $id = $getId->fetch(PDO::FETCH_OBJ);
+            return $id;
+        }
+    }
+
+    public function read($id)
     {
     }
 
-    public function read()
+    public function update(/* je sais pas trop */)
     {
     }
 
-    public function update()
-    {
-    }
-
-    public function delete()
+    public function delete($id)
     {
     }
 
