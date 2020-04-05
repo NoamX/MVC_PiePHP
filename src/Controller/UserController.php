@@ -3,13 +3,19 @@
 namespace Controller;
 
 use Core\Controller;
+use Core\Request;
 use Model\UserModel;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $request = new Request;
+    }
+
     public function indexAction()
     {
-
+        
     }
 
     public function addAction()

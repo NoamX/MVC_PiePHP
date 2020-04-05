@@ -2,6 +2,7 @@
 
 namespace Model;
 
+use Core\Request;
 use PDO;
 
 class UserModel
@@ -16,6 +17,7 @@ class UserModel
             $this->email = $_POST['email'];
             $this->password = $_POST['password'];
         }
+        $request = new Request;
     }
 
     public function save()
