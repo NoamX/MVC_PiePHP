@@ -98,6 +98,11 @@ class UserModel
 
     public function read($id)
     {
+        $req = self::$db->prepare('SELECT * FROM users WHERE id = :id');
+        $req->execute([
+            'id' => $id,
+        ]);
+        return $res = $req->fetch(PDO::FETCH_OBJ);
     }
 
     public function update(/* je sais pas trop */)
