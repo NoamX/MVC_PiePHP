@@ -13,7 +13,10 @@
 <body>
     <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link" href="http://localhost/First_Year/PHP/MVC_PiePHP/">Main page</a>
+            <a class="nav-link" href="http://localhost/First_Year/PHP/MVC_PiePHP/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://localhost/First_Year/PHP/MVC_PiePHP/list">See all users</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="http://localhost/First_Year/PHP/MVC_PiePHP/register">Register</a>

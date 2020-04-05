@@ -15,10 +15,6 @@ class UserController extends Controller
     public function addAction()
     {
         $this->render('register');
-    }
-
-    public function registerAction()
-    {
         $user = new UserModel($_POST);
         $user->save();
         $this->render('register');
@@ -29,5 +25,12 @@ class UserController extends Controller
         $this->render('login');
         $user = new UserModel($_POST);
         $user->login();
+    }
+
+    public function readallAction()
+    {
+        $users = new UserModel();
+        $users = $users->read_all();
+        $this->render('allUsers', ['users' => $users]);
     }
 }

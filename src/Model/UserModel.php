@@ -87,5 +87,8 @@ class UserModel
 
     public function read_all()
     {
+        $req = self::$db->prepare('SELECT * FROM users');
+        $req->execute();
+        return $res = $req->fetchAll(PDO::FETCH_OBJ);
     }
 }
