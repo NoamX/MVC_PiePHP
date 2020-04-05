@@ -92,7 +92,7 @@ class UserModel
                 'email' => $email,
             ]);
             $id = $getId->fetch(PDO::FETCH_OBJ);
-            return $id;
+            return $id->id;
         }
     }
 
@@ -111,6 +111,10 @@ class UserModel
 
     public function delete($id)
     {
+        $req = self::$db->prepare('DELETE FROM users WHERE id = :id');
+        $req->execute([
+            'id' => $id,
+        ]);
     }
 
     public function read_all()
