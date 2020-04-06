@@ -10,12 +10,12 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $request = new Request;
+        $request = new Request();
     }
 
     public function indexAction()
     {
-        
+        $this->render('index');
     }
 
     public function addAction()
@@ -23,7 +23,6 @@ class UserController extends Controller
         $this->render('register');
         $user = new UserModel($_POST);
         $user->save();
-        $this->render('register');
     }
 
     public function loginAction()

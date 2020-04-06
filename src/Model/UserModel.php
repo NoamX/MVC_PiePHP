@@ -17,7 +17,6 @@ class UserModel
             $this->email = $_POST['email'];
             $this->password = $_POST['password'];
         }
-        $request = new Request;
     }
 
     public function save()
@@ -107,8 +106,12 @@ class UserModel
         return $res = $req->fetch(PDO::FETCH_OBJ);
     }
 
-    public function update(/* je sais pas trop */)
+    public function update($field, $value, $id)
     {
+        $field = htmlspecialchars($field);
+        $value = htmlspecialchars($value);
+        $req = self::$db->prepare("UPDATE users SET $field = '$value' WHERE id = $id");
+        $req->execute();
     }
 
     public function delete($id)
