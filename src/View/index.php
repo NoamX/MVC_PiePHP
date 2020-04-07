@@ -11,18 +11,18 @@
 </head>
 
 <body>
-    <ul class="nav justify-content-center">
+    <ul class="nav justify-content-center bg-dark">
         <li class="nav-item">
-            <a class="nav-link" href="http://localhost/First_Year/PHP/MVC_PiePHP/">Home</a>
+            <a class="nav-link text-white" href="http://localhost/First_Year/PHP/MVC_PiePHP/">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="http://localhost/First_Year/PHP/MVC_PiePHP/list">See all users</a>
+            <a class="nav-link text-white" href="http://localhost/First_Year/PHP/MVC_PiePHP/list">See all users</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="http://localhost/First_Year/PHP/MVC_PiePHP/register">Register</a>
+            <a class="nav-link text-white" href="http://localhost/First_Year/PHP/MVC_PiePHP/register">Register</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="http://localhost/First_Year/PHP/MVC_PiePHP/login">Login</a>
+            <a class="nav-link text-white" href="http://localhost/First_Year/PHP/MVC_PiePHP/login">Login</a>
         </li>
     </ul>
     <?= $view ?>
