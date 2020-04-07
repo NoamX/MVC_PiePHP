@@ -30,7 +30,7 @@ class ORM
 
         $content .= "'" . $contents . "'";
 
-        $req = self::$db->prepare("INSERT INTO $table($fields) VALUES($content);");
+        $req = self::$db->prepare("INSERT INTO $table($fields) VALUES($content)");
         $req->execute();
 
         return self::$db->lastInsertId();
@@ -38,6 +38,10 @@ class ORM
 
     public function read($table, $id) // retourne un tableau associatif de l'enregistrement
     {
+        $req = self::$db->prepare("SELECT * FROM $table WHERE id = $id");
+        $req->execute();
+        $res = $req->fetch(PDO::FETCH_ASSOC);
+        return $res;
     }
 
     public function update($table, $id, $field) // retourne un booleen
