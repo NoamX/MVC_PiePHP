@@ -16,7 +16,11 @@ class AppController extends Controller
         //     'email' => 'email@gmail.com',
         //     'password' => '1234',
         // ]);
-        $orm->read('users', 1);
+        // $orm->update('users', 3, [
+        //     'email' => 'newemail@gmail.com',
+        //     'password' => '1234',
+        // ]);
+        // $orm->read('users', 1);
         // $orm->delete('users', 1);
     }
 }

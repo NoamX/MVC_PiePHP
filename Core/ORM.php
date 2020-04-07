@@ -46,6 +46,18 @@ class ORM
 
     public function update($table, $id, $field) // retourne un booleen
     {
+        $req = self::$db->prepare("SELECT id FROM $table WHERE id = $id");
+        $req->execute();
+        $res = $req->fetch(PDO::FETCH_OBJ);
+
+        if ($res) {
+            /*
+            Syntax :
+            UPDATE table
+            SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3'
+            WHERE condition
+            */
+        }
     }
 
     public function delete($table, $id) // retourne un booleen
@@ -66,18 +78,8 @@ class ORM
     {
     }
 }
-/*
-Usage :
-$orm = new ORM();
-$orm->create('articles', [
-    'title' => 'title',
-    'content' => 'content',
-    'author' => 'someone',
-]);
-$orm->update('articles', 1, [
-    'title' => 'another title',
-    'content' => 'another content',
-    'author' => 'someone',
-]);
-$orm->delete(1);
-*/
+// $orm->update('articles', 1, array (
+//     'titre' => "un super titre" ,
+//     'content' => 'et voici un super article de blog',
+//     'author' => 'Rodrigue'
+// ));
