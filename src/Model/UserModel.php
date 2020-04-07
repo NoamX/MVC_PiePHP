@@ -2,7 +2,6 @@
 
 namespace Model;
 
-use Core\Request;
 use PDO;
 
 class UserModel
