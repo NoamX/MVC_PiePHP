@@ -46,6 +46,16 @@ class ORM
 
     public function delete($table, $id) // retourne un booleen
     {
+        $check = self::$db->prepare("SELECT id FROM $table WHERE id = $id");
+        $check->execute();
+        $res = $check->fetch(PDO::FETCH_OBJ);
+        if ($res) {
+            $req = self::$db->prepare("DELETE FROM $table WHERE id = $id");
+            $req->execute();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function find($table, $params = []) // retourne un tableau d'enregistrement
