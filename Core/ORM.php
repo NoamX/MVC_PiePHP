@@ -10,7 +10,7 @@ class ORM
 
     public function __construct()
     {
-        return self::$db = new PDO('mysql:host=localhost;dbname=MVC_PiePHP', 'root', '');
+        self::$db = new PDO('mysql:host=localhost;dbname=MVC_PiePHP', 'root', '');
     }
 
     public function create($table, $field) // retourne un id
@@ -74,7 +74,29 @@ class ORM
         }
     }
 
-    public function find($table, $params = []) // retourne un tableau d'enregistrement
+    public function find($table, $params = [
+        'WHERE' => '1',
+        'ORDER BY' => 'id ASC',
+        'LIMIT' => '',
+    ]) // retourne un tableau d'enregistrement
     {
+        if (!$params) {
+            $r = "SELECT * FROM $table";
+        } else {
+            foreach ($params as $key => $value) {
+                if ($key && $value) {
+                    if ($key == 'WHERE') {
+                        $c[] = "$key id = $value";
+                    } else {
+                        $c[] = "$key $value";
+                    }
+                }
+            }
+            $r = "SELECT * FROM $table " . implode(' ', $c);
+        }
+        $req = self::$db->prepare($r);
+        $req->execute();
+        $res = $req->fetchAll(PDO::FETCH_OBJ);
+        return $res;
     }
 }

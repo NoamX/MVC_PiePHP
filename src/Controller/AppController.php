@@ -22,5 +22,6 @@ class AppController extends Controller
         // ]);
         // $orm->read('users', 1);
         // $orm->delete('users', 1);
+        // $orm->find('users');
     }
 }
