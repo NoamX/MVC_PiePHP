@@ -9,16 +9,16 @@ class AppController extends Controller
 {
     public function indexAction()
     {
-        // TEST ORM
         $this->render('index');
-        $orm = new ORM();
+        // TEST ORM
+        // $orm = new ORM();
         // $orm->create('users', [
-        //     'email' => 'email@gmail.com',
+        //     'email' => 'test@gmail.com',
         //     'password' => '1234',
         // ]);
         // $orm->update('users', 3, [
-        //     'email' => 'newemail@gmail.com',
-        //     'password' => '1234',
+        //     'email' => 'new_email@gmail.com',
+        //     'password' => '1234azerty',
         // ]);
         // $orm->read('users', 1);
         // $orm->delete('users', 1);

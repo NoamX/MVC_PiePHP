@@ -15,14 +15,11 @@ class ORM
 
     public function create($table, $field) // retourne un id
     {
-        $f = [];
-        $c = [];
-
         $content = null;
 
         foreach ($field as $key => $value) {
-            array_push($f, $key);
-            array_push($c, $value);
+            $f[] = $key;
+            $c[] = $value;
         }
 
         $fields = implode(", ", $f);
@@ -43,7 +40,7 @@ class ORM
         $res = $req->fetch(PDO::FETCH_ASSOC);
         return $res;
     }
-
+    
     public function update($table, $id, $field) // retourne un booleen
     {
         $req = self::$db->prepare("SELECT id FROM $table WHERE id = $id");
@@ -51,12 +48,15 @@ class ORM
         $res = $req->fetch(PDO::FETCH_OBJ);
 
         if ($res) {
-            /*
-            Syntax :
-            UPDATE table
-            SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3'
-            WHERE condition
-            */
+            foreach ($field as $key => $value) {
+                $u[] = $key . ' = ' . "'" . $value . "'";
+            }
+            $update =  implode(', ', $u);
+            $req = self::$db->prepare("UPDATE $table SET $update WHERE id = $id");
+            $req->execute();
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -78,8 +78,8 @@ class ORM
     {
     }
 }
-// $orm->update('articles', 1, array (
-//     'titre' => "un super titre" ,
-//     'content' => 'et voici un super article de blog',
-//     'author' => 'Rodrigue'
+// $orm = new ORM();
+// $orm->update('articles', 1, array(
+//     'email' => "new_email@gmail.com",
+//     'password' => '1234',
 // ));
