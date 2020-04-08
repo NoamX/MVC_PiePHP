@@ -11,11 +11,11 @@ class AppController extends Controller
     {
         $this->render('index');
         // TEST ORM
-        $orm = new ORM();
-        $orm->create('users', [
-            'email' => 'email_test@gmail.com',
-            'password' => '1234',
-        ]);
+        // $orm = new ORM();
+        // $orm->create('users', [
+        //     'email' => 'email_test@gmail.com',
+        //     'password' => '1234',
+        // ]);
         // $orm->update('users', 3, [
         //     'email' => 'new_email@gmail.com',
         //     'password' => '1234azerty',
