@@ -40,7 +40,7 @@ class ORM
         $res = $req->fetch(PDO::FETCH_ASSOC);
         return $res;
     }
-    
+
     public function update($table, $id, $field) // retourne un booleen
     {
         $req = self::$db->prepare("SELECT id FROM $table WHERE id = $id");
@@ -78,8 +78,3 @@ class ORM
     {
     }
 }
-// $orm = new ORM();
-// $orm->update('articles', 1, array(
-//     'email' => "new_email@gmail.com",
-//     'password' => '1234',
-// ));
