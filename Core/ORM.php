@@ -15,8 +15,6 @@ class ORM
 
     public function create($table, $field) // retourne un id
     {
-        $content = null;
-
         foreach ($field as $key => $value) {
             $f[] = $key;
             $c[] = $value;
@@ -25,7 +23,7 @@ class ORM
         $fields = implode(", ", $f);
         $contents = implode("', '", $c);
 
-        $content .= "'" . $contents . "'";
+        $content = "'" . $contents . "'";
 
         $req = self::$db->prepare("INSERT INTO $table($fields) VALUES($content)");
         $req->execute();
