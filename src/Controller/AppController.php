@@ -22,11 +22,15 @@ class AppController extends Controller
         // ]);
         // $orm->read('users', 1);
         // $orm->delete('users', 1);
-        // $orm->find('users', [
-        //     'WHERE' => '2',
-        //     'AND' => 'email',
-        //     'LIKE' => '%azerty%',
-        //     'LIMIT' => '2',
-        // ]);
+        echo '<pre>';
+        $orm->find('users', [
+            'WHERE' => '2',
+            'AND' => 'email',
+            'LIKE' => '%azerty%',
+            'OR' => '',
+            'email' => 'azerty_2@gmail.com',
+            'LIMIT' => '2',
+        ]);
+        echo '</pre>';
     }
 }

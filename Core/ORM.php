@@ -82,13 +82,6 @@ class ORM
             $r = "SELECT * FROM $table";
         } else {
             foreach ($params as $key => $value) {
-                if ($key == 'WHERE') {
-                    $c[] = "$key id = $value";
-                } elseif ($key == 'LIKE') {
-                    $c[] .= "$key '" . $value . "'";
-                } else {
-                    $c[] = "$key $value";
-                }
 
                 if (!$params['LIMIT']) {
                     $r = substr("SELECT * FROM $table " . implode(' ', $c), 0, -7);
@@ -96,10 +89,12 @@ class ORM
                     $r = "SELECT * FROM $table " . implode(' ', $c);
                 }
             }
+            echo $r . '<br>';
         }
         $req = self::$db->prepare($r);
         $req->execute();
         $res = $req->fetchAll(PDO::FETCH_OBJ);
-        return $res;
+        print_r($params);
+        return print_r($res);
     }
 }
