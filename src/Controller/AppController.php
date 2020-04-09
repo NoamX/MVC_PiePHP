@@ -11,7 +11,7 @@ class AppController extends Controller
     {
         $this->render('index');
         // TEST ORM
-        // $orm = new ORM();
+        $orm = new ORM();
         // $orm->create('users', [
         //     'email' => 'email_test@gmail.com',
         //     'password' => '1234',
@@ -22,6 +22,11 @@ class AppController extends Controller
         // ]);
         // $orm->read('users', 1);
         // $orm->delete('users', 1);
-        // $orm->find('users');
+        $orm->find('users', [
+            'WHERE' => '2',
+            'AND' => 'email',
+            'LIKE' => '%azerty%',
+            'LIMIT' => '2',
+        ]);
     }
 }

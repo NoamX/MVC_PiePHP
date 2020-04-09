@@ -82,15 +82,20 @@ class ORM
             $r = "SELECT * FROM $table";
         } else {
             foreach ($params as $key => $value) {
-                if ($key && $value) {
-                    if ($key == 'WHERE') {
-                        $c[] = "$key id = $value";
-                    } else {
-                        $c[] = "$key $value";
-                    }
+                if ($key == 'WHERE') {
+                    $c[] = "$key id = $value";
+                } elseif ($key == 'LIKE') {
+                    $c[] .= "$key '" . $value . "'";
+                } else {
+                    $c[] = "$key $value";
+                }
+
+                if (!$params['LIMIT']) {
+                    $r = substr("SELECT * FROM $table " . implode(' ', $c), 0, -7);
+                } else {
+                    $r = "SELECT * FROM $table " . implode(' ', $c);
                 }
             }
-            $r = "SELECT * FROM $table " . implode(' ', $c);
         }
         $req = self::$db->prepare($r);
         $req->execute();
