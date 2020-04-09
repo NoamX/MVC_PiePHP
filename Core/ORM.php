@@ -83,11 +83,11 @@ class ORM
         } else {
             foreach ($params as $key => $value) {
 
-                if (!$params['LIMIT']) {
-                    $r = substr("SELECT * FROM $table " . implode(' ', $c), 0, -7);
-                } else {
-                    $r = "SELECT * FROM $table " . implode(' ', $c);
-                }
+                // if (!$params['LIMIT']) {
+                //     $r = substr("SELECT * FROM $table " . implode(' ', $c), 0, -7);
+                // } else {
+                //     $r = "SELECT * FROM $table " . implode(' ', $c);
+                // }
             }
             echo $r . '<br>';
         }
