@@ -16,8 +16,13 @@ par la clé et la valeur fourni par la valeur de l’entrée du tableau.
 
 class Entity
 {
-    public function __construct()
+    public function __construct($email, $password)
     {
+        $arr = [
+            'email' => $this->email = $email,
+            'password' => $this->password = $password,
+        ];
+        return $arr;
     }
 }
 /*
